@@ -26,5 +26,8 @@ const actions = {
 }
 
 export default {
-  namespace: true, state, mutations, actions
+  namespaced: true,
+  state,
+  mutations,
+  actions
 }

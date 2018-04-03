@@ -10,8 +10,12 @@
     name: 'InitializeData',
     methods: {
       init () {
-        this.$store.dispatch('users/seed')
-        this.$store.dispatch('conversations/seed')
+        this.$store.dispatch('users/seed').catch(err => {
+          console.log(err)
+        })
+        this.$store.dispatch('conversations/seed').catch(err => {
+          console.log(err)
+        })
       },
       get () {
       }
@@ -25,5 +29,10 @@
     background: transparent;
     border: 2px solid black;
     padding: 12px 18px;
+  }
+  button:focus,
+  button:active {
+    background: black;
+    color: #fff;
   }
 </style>

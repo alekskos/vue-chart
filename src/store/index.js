@@ -7,7 +7,7 @@ import config from '../config'
 import users from './users'
 import conversations from './conversations'
 
-Firebase.initializeApp(config)
+firebase.initializeApp(config)
 Vue.use(Vuex)
 
 const state = {

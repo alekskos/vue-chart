@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import Initialize from './Initialize'
+  import Initialize from './InitializeData'
   export default {
     name: 'app',
     created () {
