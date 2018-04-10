@@ -1,6 +1,6 @@
 <template>
   <div class="message__container">
-    <div v-bind:class="getPosition">
+    <div :class="getPosition">
       {{ message.text }}
     </div>
   </div>
@@ -10,11 +10,13 @@
   export default {
     name: 'Message',
     props: {
-      type: Object,
-      required: true
+      message: {
+        type: Object,
+        required: true
+      }
     },
     computed: {
-      getPosition() {
+      getPosition () {
         if (this.message.sender === this.$store.state.users.currentUser) {
           return 'my message'
         } else {
@@ -29,7 +31,12 @@
   .my.message {
     text-align: right;
   }
+  .message {
+    text-align: left;
+  }
   .message__container {
+    margin: 0 auto;
+    width: 20vw;
     border: 1px solid silver;
   }
 </style>

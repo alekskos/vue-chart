@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="init">Initialize</button>
-    <button @click="get">Get</button>
+    <button @click="getMsg">Get</button>
   </div>
 </template>
 
@@ -17,9 +17,9 @@
           console.log(err)
         })
       },
-      get () {
-        this.$store.dispatch('users/get')
-        this.$store.dispatch('conversations/get')
+      getMsg () {
+        this.$store.dispatch('users/getMsg')
+        this.$store.dispatch('conversations/getMsg')
       }
     }
   }

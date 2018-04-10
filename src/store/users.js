@@ -23,7 +23,7 @@ const actions = {
       lastName: 'Kost'
     })
   },
-  async get ({ commit, rootState }) {
+  async getMsg ({ commit, rootState }) {
     let userRef = rootState.db.collection('users')
     let users = await userRef.get()
     users.forEach(user => commit('SET_USER', { user }))
