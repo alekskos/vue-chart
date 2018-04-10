@@ -2,10 +2,16 @@
   <div>
     <h2>Conversation ID: {{ id }}</h2>
     <Message
-      v-for="message in conversation.message"
+      v-for="message in conversation.messages"
       :message="message"
-      :key="message.created"
+      :key="message.id"
     />
+    <br>
+    <input
+      type="text"
+      v-model="newMessageText"
+      @keyup.enter="send"
+      placeholder="Type something..." />
   </div>
 </template>
 
@@ -14,6 +20,11 @@
   import { mapState } from 'vuex'
   export default {
     name: 'ConversationContainer',
+    data () {
+      return {
+        newMessageText: ''
+      }
+    },
     props: {
       conversation: {
         type: Object,
@@ -26,14 +37,23 @@
     },
     created () {
       this.$store.state.db.collection('conversations').doc(this.id).onSnapshot(convo => {
-        let source = convo.metadata.hasPendingWrites ? 'Local' : 'Server'
-        console.log(`Source: ${source}`)
+        let source = convo.metadata.hasPendingWrites ? 'Local' : 'Server';
+        console.log(`Source: ${source}`);
         if (convo && convo.data()) {
-          convo.data().messages.forEach(message => this.$store.commit('conversations/ADD_MESSAGE', {
-            conversationId: this.id, message })
+          convo.data().messages.forEach(message => this.$store.commit('conversations/ADD_MESSAGE', { conversationId: this.id, message })
           )
         }
       })
+    },
+    methods: {
+      send () {
+        this.$store.dispatch('conversations/sendMessage', {
+          text: this.newMessageText,
+          created: Date.now(),
+          conversationId: this.id,
+          sender: this.$store.state.users.currentUser
+        })
+      }
     },
     components: {
       Message
